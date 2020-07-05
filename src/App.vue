@@ -71,7 +71,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container class="fill-height" fluid>
+      <v-container fluid>
         <router-view />
       </v-container>
     </v-main>
