@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
+    <v-navigation-drawer v-if="isLogged" v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <v-list dense>
         <template>      
           <v-list-item :to="{path:'dashboard'}">
@@ -57,15 +57,15 @@
       </v-list>      
     </v-navigation-drawer>
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="isLogged">
       </v-app-bar-nav-icon>
       <v-toolbar-title>Booking Agent</v-toolbar-title>
 
       <v-spacer></v-spacer>
             
-      <v-chip class="ma-2" label :to="{name: ''}">
+      <v-chip class="ma-2" label @click="logout()" v-if="isLogged">
         <v-icon>mdi-login</v-icon>
-        Login
+        Logout
       </v-chip>
         
     </v-app-bar>
@@ -84,14 +84,32 @@
 </template>
 
 <script>
+import Pending from '@/components/Pending.vue';
 
 export default {
   name: 'App',
 
   data: () => ({
-    drawer: true
+    drawer: true,
+    dialogLogin: false
   }),
+
+  created() {
+    this.$store.dispatch("autoLogin");
+  },
+
+  computed: {
+    isLogged() {
+      (this.$store.state.user == null) ? this.drawer = false : this.drawer = true;
+      return this.$store.state.user;
+    }
+  },
+
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    }
+  },
 
 }
 </script>
-
