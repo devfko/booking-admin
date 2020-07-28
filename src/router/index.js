@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store/index';
 
-import Home from '../views/Home.vue';
 import Dashboard from '@/components/Dashboard.vue';
 import Pending from '@/components/Pending.vue';
 import Login from '@/components/Login.vue';
@@ -14,13 +13,7 @@ VueRouter.prototype.push = function(location) {
 
 Vue.use(VueRouter);
 
-const routes = [
-    // {
-    //     path: '/',
-    //     name: 'Home',
-    //     component: Home
-    // },
-    {
+const routes = [{
         path: '/dashboard',
         name: 'dashboard',
         component: Dashboard

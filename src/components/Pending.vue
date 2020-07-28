@@ -12,10 +12,9 @@
             :items-per-page="5"
         >
             <template v-slot:item.options="{ item }">
-                <v-icon small class="mr-2" @click="viewOrder">
+                <v-icon small class="mr-2" @click="viewOrder(item)">
                     mdi-eye
                 </v-icon>
-                {{item}}
             </template>
             <template v-slot:item.user="{ item }">
                 {{item.user.name}} {{item.user.lastname}}
@@ -34,10 +33,9 @@
             </template>
 
         </v-data-table>
-        <div>
-            <modal-order-pending v-show="showModalInfo" :msg="message" v-model="showModalInfo"></modal-order-pending>
-        </div>
-        <!-- <modal ref ="modal"></modal> -->
+        <template>
+            <modal-order-pending  :visible="showModalInfo" :itemSel="itemSelected" @close="showModalInfo=false"></modal-order-pending>
+        </template>
     </div>
 </template>
 
@@ -63,8 +61,7 @@ export default {
                 {text: "Options", value:"options", sortable: false},
             ],
             items: [],
-            itemSelected: [],
-            message: ''
+            itemSelected: {}
         }
     },
 
@@ -112,14 +109,9 @@ export default {
             }
         },
 
-        // viewOrder(item) {
-        viewOrder() {
-            // console.log(item);
-            console.log(this.showModalInfo);
-            // this.itemSelected = item;
-            // console.log(this.itemSelected);
-            this.showModalInfo = !this.showModalInfo;
-            console.log(this.showModalInfo);
+        viewOrder(item) {
+            this.itemSelected = item;
+            this.showModalInfo=true
         }
     },
 }

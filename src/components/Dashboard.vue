@@ -10,7 +10,7 @@
                   class="white--text align-end justify-center align-center"
                   min-height="100px"
                   width="100%"
-                  :src="defaultImage"
+                  :src="( info_establishment.logo = '' ? defaultImage : info_establishment.logo)"
                 >
                 </v-img>
               </v-row>
